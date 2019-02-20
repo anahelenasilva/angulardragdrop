@@ -9,10 +9,25 @@
   }
 </style>
 
-<div cdkDropList (cdkDropListDropped)="drop($event)">
-  <div cdkDrag *ngFor="let number of numbers" class="item">
-    {{number}}
+<div style="display: flex;">
+  <div cdkDropList
+    [cdkDropListData]="numbers"
+    [cdkDropListConnectedTo]="otherList"
+    #firstList="cdkDropList"
+    (cdkDropListDropped)="drop($event)" style="width: 25%; border: 1px solid red;">
+    <div cdkDrag *ngFor="let number of numbers" class="item">
+      {{number}}
+    </div>
+  </div>
+
+  <div cdkDropList
+    [cdkDropListData]="otherNumbers"
+    [cdkDropListConnectedTo]="firstList"
+    #otherList="cdkDropList"
+    (cdkDropListDropped)="drop($event)" style="width: 25%; border: 1px solid blue;">
+    <div cdkDrag *ngFor="let number of otherNumbers" class="item">
+      {{number}}
+    </div>
   </div>
 </div>
-
 <router-outlet></router-outlet>
